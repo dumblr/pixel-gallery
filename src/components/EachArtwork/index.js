@@ -1,5 +1,6 @@
 import React from "react";
 import { Wrapper, Container } from "./styles";
+import ArtworkGrid from "../ArtworkGrid";
 
 const EachArtwork = ({
   imageDescription,
@@ -12,8 +13,7 @@ const EachArtwork = ({
 }) => (
   <Wrapper>
     <Container>
-      art here (pxif.pixels logging)
-      {console.log(pixels)}
+      <ArtworkGrid />
     </Container>
     <div>
       <p>Title: {imageDescription}</p>
