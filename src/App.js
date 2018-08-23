@@ -1,14 +1,14 @@
-import React, { Component } from "react";
-import EachArtwork from "./components/EachArtwork";
-import { H1, H2 } from "./components/AppStyles/styles";
-import urlEnv from "./utils/urlEnv";
+import React, { Component } from 'react';
+import EachArtwork from './components/EachArtwork';
+import { H1, H2 } from './components/AppStyles/styles';
+import urlEnv from './utils/urlEnv';
 
 class App extends Component {
   state = {
     artwork: [],
     isOwner: false,
-    title: "pixel-gallery",
-    description: "a p2p pxon canvas and gallery",
+    title: 'pixel-gallery',
+    description: 'a p2p pxon canvas and gallery',
     siteError: false
   };
   async componentDidMount() {
@@ -28,13 +28,14 @@ class App extends Component {
       // needs to be refactored
       // all should be capable of error probably?
       this.setState({
-        siteError: true
+        siteError: true,
+        isOwner: false
       });
     }
   }
 
   loadArtwork = async archive => {
-    const art = await archive.readdir("/art");
+    const art = await archive.readdir('/art');
     if (art.length === 0) {
       return null;
     }
@@ -66,11 +67,20 @@ class App extends Component {
   render() {
     return (
       <div>
-        <div style={{ padding: "40px" }}>
+        <div style={{ padding: '40px' }}>
           <H1>{this.state.title}</H1>
           <H2>{this.state.description}</H2>
           <div>
             <a href="#">info</a>
+          </div>
+          <div>
+            <form>
+              <label>
+                <span>Add artwork to your gallery</span>
+                <input placeholder="dat://qqqqqqqqqqq/art/example.json" />
+                <input type="submit" />
+              </label>
+            </form>
           </div>
         </div>
         {this.state.artwork &&
