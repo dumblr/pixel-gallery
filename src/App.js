@@ -59,10 +59,12 @@ class App extends Component {
 
   loadSavedFromDraft = () => {
     // load from drafts folder into editor
+    // display drafts in a list on the canvas page
   };
 
   deleteArtwork = () => {
     // deletes new art files
+    // ability to do this in own gallery or a draft
   };
 
   render() {
