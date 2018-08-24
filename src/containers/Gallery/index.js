@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import Header from '../../components/Header';
 import ArtworkList from '../../components/ArtworkList';
 
 const Gallery = ({ title, description, artwork }) => (
-  <div>
+  <Fragment>
     <Header title={title} description={description} />
     <ArtworkList artwork={artwork} />
-  </div>
+  </Fragment>
 );
 
 export default Gallery;
