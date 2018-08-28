@@ -10,10 +10,11 @@ const Block = styled.div`
   width: 30px;
   height: 30px;
   outline: 1px solid black;
-  background-color: transparent;
+  background-color: ${props => (props.bgColor ? props.bgColor : 'transparent')};
 
   :hover {
-    background-color: rgba(170, 177, 192, 0.4);
+    background-color: ${props =>
+      props.hoverColor ? props.hoverColor : 'rgba(170, 177, 192, 0.4)'};
     cursor: pointer;
   }
 `;
@@ -25,13 +26,21 @@ export const Container = styled.div`
 `;
 
 class Easel extends React.Component {
+  state = {
+    easelColor: 'black'
+  };
   render() {
-    const canvas = Array.from(Array(256));
     return (
       <Container>
+        {console.log('canvas pro', this.props.canvas)}
         <Grid>
-          {canvas.map((x, i) => (
-            <Block key={i} />
+          {this.props.canvas.map((x, i) => (
+            <Block
+              key={i}
+              bgColor={x.color}
+              hoverColor={this.state.easelColor}
+              onClick={() => this.props.savePixel(i, this.state.easelColor)}
+            />
           ))}
         </Grid>
       </Container>
