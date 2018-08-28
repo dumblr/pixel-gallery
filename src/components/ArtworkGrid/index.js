@@ -7,7 +7,6 @@ import union from 'lodash.union';
 const Block = styled.div`
   width: 30px;
   height: 30px;
-  border: 1px solid black;
   background-color: ${props =>
     props.color ? props.color : gridBgColor(props.helper, props.i)};
 `;
@@ -19,6 +18,7 @@ const Grid = styled.div`
 
 const ArtworkGrid = ({ pixels }) => {
   const canvas = Array.from(Array(256));
+  canvas.fill({ color: null });
 
   pixels.forEach(p => {
     const counter = getCellNumber(p.x, p.y);
@@ -29,7 +29,7 @@ const ArtworkGrid = ({ pixels }) => {
   return (
     <Grid>
       {console.log('canvas', canvas)}
-      {pixels.map((pixel, i) => (
+      {canvas.map((pixel, i) => (
         <Block key={i} color={pixel.color || 'white'}>
           {i}
         </Block>
