@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import gridBgColor from '../../utils/gridBgColor';
 import { getCellNumber } from '../../utils/galleryTransforms';
-import union from 'lodash.union';
 
 const Block = styled.div`
   width: 30px;
@@ -30,9 +29,7 @@ const ArtworkGrid = ({ pixels }) => {
     <Grid>
       {console.log('canvas', canvas)}
       {canvas.map((pixel, i) => (
-        <Block key={i} color={pixel.color || 'white'}>
-          {i}
-        </Block>
+        <Block key={i} color={pixel.color || 'transparent'} />
       ))}
     </Grid>
   );

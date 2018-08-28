@@ -1,5 +1,7 @@
 import React from 'react';
 import { H1, H2 } from '../AppStyles/styles';
+import { Link } from '@reach/router';
+import Canvas from '../../containers/Canvas/index';
 
 const Header = ({ title, description }) => (
   <div style={{ padding: '40px' }}>
@@ -16,6 +18,7 @@ const Header = ({ title, description }) => (
           <input type="submit" />
         </label>
       </form>
+      <Link to="canvas">Canvas</Link>
     </div>
   </div>
 );
