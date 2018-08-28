@@ -1,44 +1,42 @@
 import React from 'react';
 import styled from 'styled-components';
-// 800px x 450px
-
-const bgColor = (helper, i) => {
-  if (helper % 2 === 0) {
-    if (i % 2 === 0) {
-      return 'rgba(255,255,255,1)';
-    }
-    return 'rgba(142, 144, 147, 0.2)';
-  }
-  if (i % 2 === 0) {
-    return 'rgba(142, 144, 147, 0.2)';
-  }
-  return 'rgba(255,255,255,1)';
-};
+import gridBgColor from '../../utils/gridBgColor';
+import { getCellNumber } from '../../utils/galleryTransforms';
+import union from 'lodash.union';
 
 const Block = styled.div`
-  width: 15px;
-  height: 15px;
-  background-color: ${props => bgColor(props.helper, props.i)};
+  width: 30px;
+  height: 30px;
+  border: 1px solid black;
+  background-color: ${props =>
+    props.color ? props.color : gridBgColor(props.helper, props.i)};
 `;
 
-const Row = styled.div`
+const Grid = styled.div`
   display: flex;
+  flex-wrap: wrap;
 `;
 
-const Blocks = ({ helper }) =>
-  Array.from(Array(32)).map((x, i) => (
-    <Block key={i} name={x} helper={helper} i={i} />
-  ));
+const ArtworkGrid = ({ pixels }) => {
+  const canvas = Array.from(Array(256));
 
-const ArtRow = ({ helper }) => (
-  <Row>
-    <Blocks helper={helper} />
-  </Row>
-);
+  pixels.forEach(p => {
+    const counter = getCellNumber(p.x, p.y);
 
-const ArtworkGrid = () =>
-  Array.from(Array(32)).map((x, i) => <ArtRow name={x} key={i} helper={i} />);
+    canvas.fill({ color: p.color }, counter, counter + 1);
+  });
 
+  return (
+    <Grid>
+      {console.log('canvas', canvas)}
+      {pixels.map((pixel, i) => (
+        <Block key={i} color={pixel.color || 'white'}>
+          {i}
+        </Block>
+      ))}
+    </Grid>
+  );
+};
 // lol this is hilarious inefficient
 
 export default ArtworkGrid;

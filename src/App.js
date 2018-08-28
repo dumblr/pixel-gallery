@@ -35,6 +35,12 @@ class App extends Component {
     }
   }
 
+  savePixel = (row, column, color) => {
+    this.setState({
+      [`${row}${column}`]: color
+    });
+  };
+
   loadArtwork = async archive => {
     const art = await archive.readdir('/art');
     if (art.length === 0) {

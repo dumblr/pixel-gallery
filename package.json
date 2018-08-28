@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@reach/router": "^1.1.1",
+    "lodash.union": "^4.6.0",
     "pxon": "^0.1.0",
     "react": "^16.4.2",
     "react-color": "^2.14.1",

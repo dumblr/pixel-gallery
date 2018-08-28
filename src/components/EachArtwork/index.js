@@ -1,6 +1,6 @@
-import React from "react";
-import { Wrapper, Container } from "./styles";
-import ArtworkGrid from "../ArtworkGrid";
+import React from 'react';
+import { Wrapper, Container } from './styles';
+import ArtworkGrid from '../ArtworkGrid';
 
 const EachArtwork = ({
   imageDescription,
@@ -13,10 +13,15 @@ const EachArtwork = ({
 }) => (
   <Wrapper>
     <Container>
-      <ArtworkGrid />
+      <ArtworkGrid pixels={pixels} />
     </Container>
     <div>
       <p>Title: {imageDescription}</p>
+      <p>by {artist}</p>
+      <p>{copyright}</p>
+      <p>{dateTime}</p>
+      <p>{software}</p>
+      <p>{userComment}</p>
       <p>
         Link to this piece: <a href="#">dat://yyyyyyyyyyyyy#this</a>
       </p>

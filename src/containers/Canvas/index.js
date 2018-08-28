@@ -1,6 +1,6 @@
 import React from 'react';
 import ArtworkGrid from '../../components/ArtworkGrid';
-import { SwatchesPicker } from 'react-color';
+import { SwatchesPicker as ColorPicker } from 'react-color';
 import { Wrapper, Container } from './styles';
 
 const Canvas = () => (
@@ -10,7 +10,7 @@ const Canvas = () => (
         <ArtworkGrid />
       </div>
 
-      <SwatchesPicker />
+      <ColorPicker height={'100%'} />
     </Container>
   </Wrapper>
 );

@@ -4,6 +4,7 @@ import ArtworkList from '../../components/ArtworkList';
 
 const Gallery = ({ title, description, artwork }) => (
   <Fragment>
+    {console.log(artwork)}
     <Header title={title} description={description} />
     <ArtworkList artwork={artwork} />
   </Fragment>
