@@ -25,27 +25,19 @@ export const Container = styled.div`
   height: 480px;
 `;
 
-class Easel extends React.Component {
-  state = {
-    easelColor: 'black'
-  };
-  render() {
-    return (
-      <Container>
-        {console.log('canvas pro', this.props.canvas)}
-        <Grid>
-          {this.props.canvas.map((x, i) => (
-            <Block
-              key={i}
-              bgColor={x.color}
-              hoverColor={this.state.easelColor}
-              onClick={() => this.props.savePixel(i, this.state.easelColor)}
-            />
-          ))}
-        </Grid>
-      </Container>
-    );
-  }
-}
+const Easel = ({ canvas, easelColor, savePixel }) => (
+  <Container>
+    <Grid>
+      {canvas.map((x, i) => (
+        <Block
+          key={i}
+          bgColor={x.color}
+          hoverColor={easelColor}
+          onClick={() => savePixel(i, easelColor)}
+        />
+      ))}
+    </Grid>
+  </Container>
+);
 
 export default Easel;

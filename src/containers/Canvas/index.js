@@ -7,7 +7,8 @@ import { getGridCoordinates } from '../../utils/galleryTransforms';
 class Canvas extends React.Component {
   state = {
     pixels: [],
-    canvas: []
+    canvas: [],
+    easelColor: 'black'
   };
   componentDidMount() {
     const canvas = Array.from(Array(256));
@@ -20,6 +21,7 @@ class Canvas extends React.Component {
   savePixel = (block, color) => {
     console.log('block', block);
     console.log('color', color);
+    console.log('coord', getGridCoordinates(block, color));
 
     this.setState(prevState => {
       const newCanvas = prevState.canvas.fill({ color }, block, block + 1);
@@ -27,21 +29,29 @@ class Canvas extends React.Component {
         canvas: newCanvas
       };
     });
-
-    console.log('coord', getGridCoordinates(block, color));
-    // this.setState({
-    //   canvas[blockNum].color: color
-    // })
   };
+
+  handleChangeComplete = color => {
+    this.setState({ easelColor: color.hex });
+  };
+
   render() {
     return (
       <Wrapper>
         <Container>
           <div>
-            <Easel savePixel={this.savePixel} canvas={this.state.canvas} />
+            <Easel
+              savePixel={this.savePixel}
+              canvas={this.state.canvas}
+              easelColor={this.state.easelColor}
+            />
           </div>
 
-          <ColorPicker height={'100%'} />
+          <ColorPicker
+            height={'100%'}
+            color={this.state.easelColor}
+            onChangeComplete={this.handleChangeComplete}
+          />
         </Container>
       </Wrapper>
     );
