@@ -12,7 +12,7 @@ class Canvas extends React.Component {
   };
   componentDidMount() {
     const canvas = Array.from(Array(256));
-    canvas.fill({ color: 'transparent' });
+    canvas.fill({ color: 'white' });
     this.setState({
       canvas
     });
@@ -33,6 +33,16 @@ class Canvas extends React.Component {
 
   handleChangeComplete = color => {
     this.setState({ easelColor: color.hex });
+  };
+
+  saveArtworkAsDraft = () => {
+    // write to drafts folder
+    // maybe not necessary for v1
+  };
+
+  publishArtwork = () => {
+    // write to artwork folder
+    // still need
   };
 
   render() {
