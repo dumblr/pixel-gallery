@@ -16,10 +16,8 @@ import urlEnv from '../../utils/urlEnv';
 
 class Canvas extends React.Component {
   state = {
-    pixels: [],
     canvas: [],
     easelColor: 'black',
-    software: '',
     artist: '',
     imageDescription: '',
     userComment: '',
@@ -50,6 +48,7 @@ class Canvas extends React.Component {
   publishArtwork = async () => {
     const newArtId = await v4();
     const archive = await new global.DatArchive(urlEnv());
+    console.log(archive);
     const pixelConversion = await this.state.canvas.reduce(
       (newCans, pixel, iter) => {
         newCans.push(getGridCoordinates(iter, pixel.color));
@@ -61,7 +60,7 @@ class Canvas extends React.Component {
     await archive.writeFile(
       `/art/${newArtId}.json`,
       fileContents(
-        this.state.software,
+        `${archive.url}/art/${newArtId}.json`,
         this.state.artist,
         this.state.imageDescription,
         this.state.userComment,
@@ -93,11 +92,6 @@ class Canvas extends React.Component {
               easelColor={this.state.easelColor}
             />
             <div>
-              <Input
-                placeholder="software"
-                value={this.state.software}
-                onChange={e => this.updateInputDetail(e, 'software')}
-              />
               <Input
                 placeholder="artist"
                 value={this.state.artist}

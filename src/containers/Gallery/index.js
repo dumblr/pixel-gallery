@@ -9,14 +9,15 @@ class Gallery extends React.Component {
     isOwner: false,
     title: 'pixel-gallery',
     description: 'a p2p pxon canvas and gallery',
-    siteError: false
+    siteError: false,
+    newArtworkUrl: ''
   };
 
   async componentDidMount() {
     try {
       const archive = await new global.DatArchive(urlEnv());
       const { title, description } = await archive.getInfo();
-      const artwork = await this.loadArtwork(archive); // get all artwork in artwork folder
+      const artwork = await this.loadArtwork(archive);
 
       this.setState({
         isOwner: true,
@@ -25,9 +26,6 @@ class Gallery extends React.Component {
         description
       });
     } catch (error) {
-      // if any of the above results in an error
-      // needs to be refactored
-      // all should be capable of error probably?
       this.setState({
         siteError: true,
         isOwner: false
@@ -50,11 +48,10 @@ class Gallery extends React.Component {
   };
 
   render() {
-    const rev = this.state.artwork.reverse();
     return (
       <Fragment>
         <Header title={this.state.title} description={this.state.description} />
-        <ArtworkList artwork={rev} />
+        <ArtworkList artwork={this.state.artwork} />
       </Fragment>
     );
   }
