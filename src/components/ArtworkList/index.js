@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import EachArtwork from '../EachArtwork';
 
-const ArtworkList = ({ artwork }) => (
+const ArtworkList = ({ artwork, isOwner, removeFn }) => (
   <Fragment>
     {artwork &&
       artwork.map((art, i) => (
@@ -14,6 +14,8 @@ const ArtworkList = ({ artwork }) => (
           software={art.exif.software}
           userComment={art.exif.userComment}
           pixels={art.pxif.pixels}
+          isOwner={isOwner}
+          removeFn={removeFn}
         />
       ))}
   </Fragment>

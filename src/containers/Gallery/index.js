@@ -10,7 +10,7 @@ class Gallery extends React.Component {
     title: 'pixel-gallery',
     description: 'a p2p pxon canvas and gallery',
     siteError: false,
-    newArtworkUrl: ''
+    isDat: true
   };
 
   async componentDidMount() {
@@ -47,11 +47,34 @@ class Gallery extends React.Component {
     return results;
   };
 
+  removeFromGallery = async pathname => {
+    const archive = await new global.DatArchive(urlEnv());
+    await archive.unlink(pathname);
+    // reload and setState
+  };
+
   render() {
     return (
       <Fragment>
-        <Header title={this.state.title} description={this.state.description} />
-        <ArtworkList artwork={this.state.artwork} />
+        <Header
+          title={this.state.title}
+          description={this.state.description}
+          isOwner={this.state.isOwner}
+          isDat={this.state.isDat}
+        />
+        <ArtworkList
+          artwork={this.state.artwork}
+          isOwner={this.state.isOwner}
+          removeFn={this.removeFromGallery}
+        />
+        {this.state.http && (
+          <div>
+            <p>
+              Looks like you're trying to view the gallery over http/https.
+              Please access this site via dat://
+            </p>
+          </div>
+        )}
       </Fragment>
     );
   }

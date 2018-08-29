@@ -38,7 +38,7 @@ class Header extends React.Component {
   };
 
   render() {
-    const { title, description } = this.props;
+    const { title, description, isOwner, isDat } = this.props;
 
     return (
       <Wrapper>
@@ -49,22 +49,26 @@ class Header extends React.Component {
           </div>
           <div>
             <StyledLink to="info">/info</StyledLink>
-            <StyledLink to="canvas">/canvas</StyledLink>
-            <button onClick={this.createGallery}>
-              create your own pixel-gallery
-            </button>
+            {isOwner && <StyledLink to="canvas">/canvas</StyledLink>}
+            {isDat && (
+              <button onClick={this.createGallery}>
+                create your own pixel-gallery
+              </button>
+            )}
           </div>
         </TopContainer>
 
-        <label>
-          <span>Add artwork to your gallery</span>
-          <input
-            placeholder="dat://xxxxxxxxxxxxxxxxx/art/zzzz-zzzz-zzzz-zzzz.json"
-            value={this.state.newArtworkUrl}
-            onChange={e => this.updateNewArtworkUrl(e)}
-          />
-          <button onClick={e => this.addArtwork(e)}>submit</button>
-        </label>
+        {isOwner && (
+          <div>
+            <span>Add artwork to your gallery</span>
+            <input
+              placeholder="dat://xxxxxxxxxxxxxxxxx/art/zzzz-zzzz-zzzz-zzzz.json"
+              value={this.state.newArtworkUrl}
+              onChange={e => this.updateNewArtworkUrl(e)}
+            />
+            <button onClick={e => this.addArtwork(e)}>submit</button>
+          </div>
+        )}
       </Wrapper>
     );
   }
