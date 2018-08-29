@@ -3,6 +3,7 @@ import { H1, H2 } from '../AppStyles/styles';
 import { Wrapper, TopContainer, StyledLink } from './styles';
 import URL from 'url-parse';
 import urlEnv from '../../utils/urlEnv';
+import { EMPTY_GALLERY } from '../../config';
 
 class Header extends React.Component {
   state = {
@@ -18,13 +19,22 @@ class Header extends React.Component {
 
   addArtwork = async e => {
     await e.preventDefault();
-    console.log('newartwork', this.state.newArtworkUrl);
     const otherArchive = await new global.DatArchive(this.state.newArtworkUrl);
     const pathname = await URL(this.state.newArtworkUrl).pathname;
     const artwork = await otherArchive.readFile(`${pathname}`);
     const archive = await new global.DatArchive(urlEnv());
 
-    await archive.writeFile(`/art/xxxxxxxxx.json`, artwork);
+    await archive.writeFile(`${pathname}`, artwork);
+  };
+
+  createGallery = async () => {
+    const newGallery = await global.DatArchive.fork(EMPTY_GALLERY, {
+      title: 'Name of gallery – will show up at top of site',
+      description: 'Description of gallery – will show up below title',
+      prompt: true
+    });
+
+    await window.location.replace(newGallery.url);
   };
 
   render() {
@@ -40,6 +50,9 @@ class Header extends React.Component {
           <div>
             <StyledLink to="info">/info</StyledLink>
             <StyledLink to="canvas">/canvas</StyledLink>
+            <button onClick={this.createGallery}>
+              create your own pixel-gallery
+            </button>
           </div>
         </TopContainer>
 
