@@ -1,6 +1,5 @@
 import React from 'react';
 import { H1, H2 } from '../AppStyles/styles';
-import { Link } from '@reach/router';
 import { Wrapper, TopContainer, Form, StyledLink } from './styles';
 
 const Header = ({ title, description }) => (

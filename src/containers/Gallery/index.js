@@ -50,10 +50,11 @@ class Gallery extends React.Component {
   };
 
   render() {
+    const rev = this.state.artwork.reverse();
     return (
       <Fragment>
         <Header title={this.state.title} description={this.state.description} />
-        <ArtworkList artwork={this.state.artwork} />
+        <ArtworkList artwork={rev} />
       </Fragment>
     );
   }
