@@ -9,7 +9,10 @@ import {
 } from './styles';
 import Easel from '../../components/Easel';
 import { getGridCoordinates } from '../../utils/galleryTransforms';
-import { Link } from '@reach/router';
+import { Link, navigate } from '@reach/router';
+import fileContents from '../../utils/fileContents';
+import { v4 } from 'uuid';
+import urlEnv from '../../utils/urlEnv';
 
 class Canvas extends React.Component {
   state = {
@@ -32,10 +35,6 @@ class Canvas extends React.Component {
   }
 
   savePixel = (block, color) => {
-    console.log('block', block);
-    console.log('color', color);
-    console.log('coord', getGridCoordinates(block, color));
-
     this.setState(prevState => {
       const newCanvas = prevState.canvas.fill({ color }, block, block + 1);
       return {
@@ -48,13 +47,34 @@ class Canvas extends React.Component {
     this.setState({ easelColor: color.hex });
   };
 
-  saveArtworkAsDraft = () => {
-    // write to drafts folder
-    // maybe not necessary for v1
-  };
-
-  publishArtwork = () => {
+  publishArtwork = async () => {
     console.log('publishing artwork');
+    const newArtId = await v4();
+    const archive = await new global.DatArchive(urlEnv());
+    const pixelConversion = await this.state.canvas.reduce(
+      (newCans, pixel, iter) => {
+        console.log('pixel', pixel);
+        console.log(iter);
+        newCans.push(getGridCoordinates(iter, pixel.color));
+        return newCans;
+      },
+      []
+    );
+
+    console.log('pixelconver', pixelConversion);
+    await archive.writeFile(
+      `/art/${newArtId}.json`,
+      fileContents(
+        this.state.software,
+        this.state.artist,
+        this.state.imageDescription,
+        this.state.userComment,
+        this.state.copyright,
+        pixelConversion
+      )
+    );
+
+    await navigate(`/`);
   };
 
   updateInputDetail = (e, key) => {
