@@ -27,7 +27,6 @@ const ArtworkGrid = ({ pixels }) => {
 
   return (
     <Grid>
-      {console.log('canvas', canvas)}
       {canvas.map((pixel, i) => (
         <Block key={i} color={pixel.color || 'transparent'} />
       ))}

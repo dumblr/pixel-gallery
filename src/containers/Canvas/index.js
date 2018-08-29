@@ -48,20 +48,16 @@ class Canvas extends React.Component {
   };
 
   publishArtwork = async () => {
-    console.log('publishing artwork');
     const newArtId = await v4();
     const archive = await new global.DatArchive(urlEnv());
     const pixelConversion = await this.state.canvas.reduce(
       (newCans, pixel, iter) => {
-        console.log('pixel', pixel);
-        console.log(iter);
         newCans.push(getGridCoordinates(iter, pixel.color));
         return newCans;
       },
       []
     );
 
-    console.log('pixelconver', pixelConversion);
     await archive.writeFile(
       `/art/${newArtId}.json`,
       fileContents(
