@@ -1,6 +1,6 @@
 import React from 'react';
 import { H1, H2 } from '../AppStyles/styles';
-import { Wrapper, TopContainer, Form, StyledLink } from './styles';
+import { Wrapper, TopContainer, StyledLink } from './styles';
 import URL from 'url-parse';
 import urlEnv from '../../utils/urlEnv';
 
