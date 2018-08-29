@@ -3,6 +3,8 @@ import Header from '../../components/Header';
 import ArtworkList from '../../components/ArtworkList';
 import urlEnv from '../../utils/urlEnv';
 import { Link } from '@reach/router';
+import Head from '../../components/Head';
+import sortBy from 'lodash.sortby';
 
 class Gallery extends React.Component {
   state = {
@@ -51,21 +53,34 @@ class Gallery extends React.Component {
 
   removeFromGallery = async pathname => {
     const archive = await new global.DatArchive(urlEnv());
+    console.log('pathname', pathname);
     await archive.unlink(pathname);
-    // reload and setState
+    const artwork = await this.loadArtwork(archive);
+    this.setState({
+      artwork
+    });
+  };
+
+  setArtworkState = artwork => {
+    this.setState({
+      artwork
+    });
   };
 
   render() {
     return (
       <Fragment>
+        <Head title={this.state.title} />
         <Header
           title={this.state.title}
           description={this.state.description}
           isOwner={this.state.isOwner}
           isDat={this.state.isDat}
+          loadArtwork={this.loadArtwork}
+          setArtworkState={this.setArtworkState}
         />
         <ArtworkList
-          artwork={this.state.artwork}
+          artwork={sortBy(this.state.artwork, ['dateTime']).reverse()}
           isOwner={this.state.isOwner}
           removeFn={this.removeFromGallery}
         />

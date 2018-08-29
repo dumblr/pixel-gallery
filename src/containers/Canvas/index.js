@@ -13,6 +13,7 @@ import { Link, navigate } from '@reach/router';
 import fileContents from '../../utils/fileContents';
 import { v4 } from 'uuid';
 import urlEnv from '../../utils/urlEnv';
+import Head from '../../components/Head';
 
 class Canvas extends React.Component {
   state = {
@@ -81,6 +82,7 @@ class Canvas extends React.Component {
   render() {
     return (
       <Wrapper>
+        <Head title="Canvas" />
         <Header>
           <Link to="/">back to gallery</Link>
         </Header>

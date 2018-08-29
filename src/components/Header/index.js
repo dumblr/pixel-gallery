@@ -25,6 +25,10 @@ class Header extends React.Component {
     const archive = await new global.DatArchive(urlEnv());
 
     await archive.writeFile(`${pathname}`, artwork);
+    const artworkState = await this.props.loadArtwork(archive);
+    await this.props.setArtworkState(artworkState);
+
+    this.setState({ newArtworkUrl: '' });
   };
 
   createGallery = async () => {
