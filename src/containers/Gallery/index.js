@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import Header from '../../components/Header';
 import ArtworkList from '../../components/ArtworkList';
 import urlEnv from '../../utils/urlEnv';
+import { Link } from '@reach/router';
 
 class Gallery extends React.Component {
   state = {
@@ -28,7 +29,8 @@ class Gallery extends React.Component {
     } catch (error) {
       this.setState({
         siteError: true,
-        isOwner: false
+        isOwner: false,
+        isDat: false
       });
     }
   }
@@ -67,13 +69,20 @@ class Gallery extends React.Component {
           isOwner={this.state.isOwner}
           removeFn={this.removeFromGallery}
         />
-        {this.state.http && (
-          <div>
-            <p>
-              Looks like you're trying to view the gallery over http/https.
-              Please access this site via dat://
-            </p>
-          </div>
+        {!this.state.isDat && (
+          <Fragment>
+            <div style={{ padding: '40px' }}>
+              <p>
+                This gallery is only viewable in browsers supporting the dat://
+                protocol.
+              </p>
+            </div>
+            <div style={{ padding: '40px' }}>
+              <p>
+                What is this? More info <Link to="info">here</Link>.
+              </p>
+            </div>
+          </Fragment>
         )}
       </Fragment>
     );
