@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import EachArtwork from './components/EachArtwork';
-import { H1, H2 } from './components/AppStyles/styles';
+import { Router } from '@reach/router';
 import urlEnv from './utils/urlEnv';
+import Gallery from './containers/Gallery';
+import Canvas from './containers/Canvas';
 
 class App extends Component {
   state = {
@@ -34,6 +35,12 @@ class App extends Component {
     }
   }
 
+  savePixel = (row, column, color) => {
+    this.setState({
+      [`${row}${column}`]: color
+    });
+  };
+
   loadArtwork = async archive => {
     const art = await archive.readdir('/art');
     if (art.length === 0) {
@@ -58,45 +65,25 @@ class App extends Component {
 
   loadSavedFromDraft = () => {
     // load from drafts folder into editor
+    // display drafts in a list on the canvas page
   };
 
   deleteArtwork = () => {
     // deletes new art files
+    // ability to do this in own gallery or a draft
   };
 
   render() {
     return (
-      <div>
-        <div style={{ padding: '40px' }}>
-          <H1>{this.state.title}</H1>
-          <H2>{this.state.description}</H2>
-          <div>
-            <a href="#">info</a>
-          </div>
-          <div>
-            <form>
-              <label>
-                <span>Add artwork to your gallery</span>
-                <input placeholder="dat://qqqqqqqqqqq/art/example.json" />
-                <input type="submit" />
-              </label>
-            </form>
-          </div>
-        </div>
-        {this.state.artwork &&
-          this.state.artwork.map((art, i) => (
-            <EachArtwork
-              key={i}
-              imageDescription={art.exif.imageDescription}
-              artist={art.exif.artist}
-              copyright={art.exif.copyright}
-              dateTime={art.exif.dateTime}
-              software={art.exif.software}
-              userComment={art.exif.userComment}
-              pixels={art.pxif.pixels}
-            />
-          ))}
-      </div>
+      <Router>
+        <Gallery
+          path="/"
+          title={this.state.title}
+          description={this.state.description}
+          artwork={this.state.artwork}
+        />
+        <Canvas path="/canvas" />
+      </Router>
     );
   }
 }
