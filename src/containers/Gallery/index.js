@@ -19,11 +19,11 @@ class Gallery extends React.Component {
   async componentDidMount() {
     try {
       const archive = await new global.DatArchive(urlEnv());
-      const { title, description } = await archive.getInfo();
+      const { title, description, isOwner } = await archive.getInfo();
       const artwork = await this.loadArtwork(archive);
 
       this.setState({
-        isOwner: true,
+        isOwner,
         artwork,
         title,
         description
