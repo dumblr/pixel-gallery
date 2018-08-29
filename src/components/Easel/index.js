@@ -23,6 +23,7 @@ export const Container = styled.div`
   border: 2px solid #000;
   width: 480px;
   height: 480px;
+  margin-bottom: 40px;
 `;
 
 const Easel = ({ canvas, easelColor, savePixel }) => (
