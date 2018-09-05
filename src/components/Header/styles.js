@@ -3,12 +3,22 @@ import { Link } from '@reach/router';
 
 export const Wrapper = styled.div`
   padding: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 `;
 
-export const TopContainer = styled.div`
+export const TitleContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+`;
+
+export const NavContainer = styled.div`
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 `;
 
 export const Form = styled.form`
@@ -17,4 +27,29 @@ export const Form = styled.form`
 
 export const StyledLink = styled(Link)`
   padding: 10px;
+`;
+
+export const CreateContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding-top: 20px;
+`;
+
+export const CreateButton = styled.button`
+  border: none;
+  background: #000;
+  color: #fff;
+  padding: 10px 15px;
+  cursor: pointer;
+`;
+
+export const AddWrapper = styled.div`
+  margin: 20px 0 0;
+  border: 1px solid #000;
+  padding: 15px;
+`;
+
+export const AddTitle = styled.h4`
+  margin: 0 0 10px;
 `;

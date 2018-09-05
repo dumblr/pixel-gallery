@@ -1,6 +1,16 @@
 import React from 'react';
 import { H1, H2 } from '../AppStyles/styles';
-import { Wrapper, TopContainer, StyledLink } from './styles';
+import {
+  Wrapper,
+  TopContainer,
+  StyledLink,
+  TitleContainer,
+  NavContainer,
+  AddWrapper,
+  AddTitle,
+  CreateButton,
+  CreateContainer
+} from './styles';
 import URL from 'url-parse';
 import urlEnv from '../../utils/urlEnv';
 import { EMPTY_GALLERY } from '../../config';
@@ -46,33 +56,39 @@ class Header extends React.Component {
 
     return (
       <Wrapper>
-        <TopContainer>
+        <TitleContainer>
           <div>
             <H1>{title}</H1>
             <H2>{description}</H2>
           </div>
+        </TitleContainer>
+        <NavContainer>
           <div>
             <StyledLink to="info">/info</StyledLink>
             {isOwner && <StyledLink to="canvas">/canvas</StyledLink>}
+          </div>
+          <CreateContainer>
             {isDat && (
-              <button onClick={this.createGallery}>
-                create your own pixel-gallery
-              </button>
+              <div>
+                <CreateButton onClick={this.createGallery}>
+                  create your own pixel-gallery
+                </CreateButton>
+              </div>
             )}
-          </div>
-        </TopContainer>
 
-        {isOwner && (
-          <div>
-            <span>Add artwork to your gallery</span>
-            <input
-              placeholder="dat://xxxxxxxxxxxxxxxxx/art/zzzz-zzzz-zzzz-zzzz.json"
-              value={this.state.newArtworkUrl}
-              onChange={e => this.updateNewArtworkUrl(e)}
-            />
-            <button onClick={e => this.addArtwork(e)}>submit</button>
-          </div>
-        )}
+            {isOwner && (
+              <AddWrapper>
+                <AddTitle>Add artwork to your gallery</AddTitle>
+                <input
+                  placeholder="dat://xxxxxxxxxxxxxxxxx/art/zzzz-zzzz-zzzz-zzzz.json"
+                  value={this.state.newArtworkUrl}
+                  onChange={e => this.updateNewArtworkUrl(e)}
+                />
+                <button onClick={e => this.addArtwork(e)}>submit</button>
+              </AddWrapper>
+            )}
+          </CreateContainer>
+        </NavContainer>
       </Wrapper>
     );
   }
