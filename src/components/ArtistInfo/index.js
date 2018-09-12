@@ -1,5 +1,6 @@
 import React from 'react';
 import { Wrapper } from './styles';
+import dayjs from 'dayjs';
 
 const ArtistInfo = ({
   artist,
@@ -9,21 +10,16 @@ const ArtistInfo = ({
   userComment
 }) => (
   <Wrapper>
-    {artist ? (
-      <p>
-        <strong>{artist}</strong>
-      </p>
-    ) : (
-      <p>
-        <strong>unknown artist</strong>
-      </p>
-    )}
+    <p>
+      <strong>{artist ? artist : 'unknown artist'}</strong>
+    </p>
+
     {imageDescription ? (
       <p>
-        {imageDescription}, {dateTime}
+        {imageDescription}, {dayjs(dateTime).format('YYYY')}
       </p>
     ) : (
-      <p>Untitled, {dateTime}</p>
+      <p>Untitled, {dayjs(dateTime).format('YYYY')}</p>
     )}
 
     {copyright && <p>{copyright}</p>}

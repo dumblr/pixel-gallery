@@ -5,4 +5,12 @@ export const Wrapper = styled.div`
   padding: 10px;
   margin-bottom: 20px;
   max-width: 30em;
+  display: ${props => (props.opened ? 'block' : 'none')};
+`;
+
+export const Button = styled.button`
+  border: none;
+  background-color: #000;
+  color: white;
+  padding: 5px 9px;
 `;

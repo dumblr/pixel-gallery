@@ -6,38 +6,64 @@ import URL from 'url-parse';
 import ArtistInfo from '../ArtistInfo';
 import AddToGallery from '../AddToGallery';
 
-const EachArtwork = ({
-  imageDescription,
-  artist,
-  copyright,
-  dateTime,
-  software,
-  userComment,
-  pixels,
-  isOwner,
-  removeFn
-}) => (
-  <Wrapper>
-    <Container>
-      <ArtworkGrid pixels={pixels} />
-    </Container>
+class EachArtwork extends React.Component {
+  constructor(props) {
+    super(props);
 
-    <ArtistInfo
-      artist={artist}
-      imageDescription={imageDescription}
-      dateTime={dateTime}
-      copyright={copyright}
-      userComment={userComment}
-    />
+    this.state = {
+      addToGalleryOpen: false
+    };
+  }
 
-    <AddToGallery software={software} />
+  flipGalleryOpen = () => {
+    this.setState(prevState => {
+      return {
+        addToGalleryOpen: !prevState.addToGalleryOpen
+      };
+    });
+  };
 
-    {isOwner && (
-      <button onClick={() => removeFn(URL(software).pathname)}>
-        remove from gallery
-      </button>
-    )}
-  </Wrapper>
-);
+  render() {
+    const {
+      imageDescription,
+      artist,
+      copyright,
+      dateTime,
+      software,
+      userComment,
+      pixels,
+      isOwner,
+      removeFn
+    } = this.props;
+
+    return (
+      <Wrapper>
+        <Container>
+          <ArtworkGrid pixels={pixels} />
+        </Container>
+
+        <ArtistInfo
+          artist={artist}
+          imageDescription={imageDescription}
+          dateTime={dateTime}
+          copyright={copyright}
+          userComment={userComment}
+        />
+
+        <AddToGallery
+          software={software}
+          addToGalleryOpen={this.state.addToGalleryOpen}
+          flipGalleryOpen={this.flipGalleryOpen}
+        />
+
+        {isOwner && (
+          <button onClick={() => removeFn(URL(software).pathname)}>
+            remove from gallery
+          </button>
+        )}
+      </Wrapper>
+    );
+  }
+}
 
 export default EachArtwork;
