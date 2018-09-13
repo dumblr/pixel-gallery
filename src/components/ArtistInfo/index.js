@@ -1,5 +1,12 @@
 import React from 'react';
-import { Wrapper } from './styles';
+import {
+  Wrapper,
+  ArtistName,
+  ArtworkTitle,
+  ArtworkMedium,
+  ArtworkDescription,
+  ArtworkCopyright
+} from './styles';
 import dayjs from 'dayjs';
 
 const ArtistInfo = ({
@@ -10,20 +17,16 @@ const ArtistInfo = ({
   userComment
 }) => (
   <Wrapper>
-    <p>
-      <strong>{artist ? artist : 'unknown artist'}</strong>
-    </p>
+    <ArtistName>{artist ? artist : 'Unknown Artist'}</ArtistName>
 
-    {imageDescription ? (
-      <p>
-        {imageDescription}, {dayjs(dateTime).format('YYYY')}
-      </p>
-    ) : (
-      <p>Untitled, {dayjs(dateTime).format('YYYY')}</p>
-    )}
+    <ArtworkTitle>
+      {imageDescription ? imageDescription : 'Untitled'},{' '}
+      <span>{dayjs(dateTime).format('YYYY')}</span>
+    </ArtworkTitle>
 
-    {copyright && <p>{copyright}</p>}
-    {userComment && <p>{userComment}</p>}
+    <ArtworkMedium>Pixel art on 16x16 grid</ArtworkMedium>
+    {userComment && <ArtworkDescription>{userComment}</ArtworkDescription>}
+    {copyright && <ArtworkCopyright>{copyright}</ArtworkCopyright>}
   </Wrapper>
 );
 
