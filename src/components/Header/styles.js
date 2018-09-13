@@ -19,6 +19,7 @@ export const NavContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  position: relative;
 `;
 
 export const Form = styled.form`
@@ -34,6 +35,9 @@ export const CreateContainer = styled.div`
   flex-direction: column;
   align-items: flex-end;
   padding-top: 20px;
+  position: absolute;
+  top: 100%;
+  width: 240px;
 `;
 
 export const CreateButton = styled.button`

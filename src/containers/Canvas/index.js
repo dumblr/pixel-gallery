@@ -95,22 +95,22 @@ class Canvas extends React.Component {
             />
             <div>
               <Input
-                placeholder="artist"
+                placeholder="Artist Name"
                 value={this.state.artist}
                 onChange={e => this.updateInputDetail(e, 'artist')}
               />
               <Input
-                placeholder="image description"
+                placeholder="Artwork Title"
                 value={this.state.imageDescription}
                 onChange={e => this.updateInputDetail(e, 'imageDescription')}
               />
               <Input
-                placeholder="user comment"
+                placeholder="Artwork Description"
                 value={this.state.userComment}
                 onChange={e => this.updateInputDetail(e, 'userComment')}
               />
               <Input
-                placeholder="copyright"
+                placeholder="Copyright info"
                 value={this.state.copyright}
                 onChange={e => this.updateInputDetail(e, 'copyright')}
               />
