@@ -1,12 +1,10 @@
 import React from 'react';
+import { Wrapper, Section } from './styles';
 
 const Info = () => (
-  <div style={{ padding: '40px', maxWidth: '32em' }}>
-    <div>
-      <h2>
-        Pixel gallery is a peer-to-peer gallery for pixel art. The original
-        gallery is located here: dat://pixel-gallery.hashbase.io.
-      </h2>
+  <Wrapper>
+    <Section>
+      <h2>Pixel Gallery is a peer-to-peer gallery for pixel art.</h2>
 
       <p>Pixel Galleries have three main features:</p>
       <ol>
@@ -15,9 +13,17 @@ const Info = () => (
           Create artwork (every pixel gallery comes with a canvas where you can
           create your own art)
         </li>
-        <li>Display other peoples' artwork in _your_ gallery.</li>
+        <li>
+          Display other peoples' artwork in <em>your</em> gallery.
+        </li>
       </ol>
 
+      <p>
+        The original gallery is viewable{' '}
+        <a href="dat://pixel-gallery.hashbase.io/">here</a>.
+      </p>
+    </Section>
+    <Section>
       <h2>What makes this gallery peer-to-peer, and why is that important?</h2>
 
       <p>
@@ -66,7 +72,8 @@ const Info = () => (
         self/style/tastes. This is like the peer-to-peer version of a
         reblog/retweet.
       </p>
-
+    </Section>
+    <Section>
       <h2>How does it work?</h2>
       <p>
         When you create a piece of artwork, it is saved as a .json file using
@@ -85,15 +92,63 @@ const Info = () => (
         </p>
       </blockquote>
 
-      <p>Read more about PXON here: https://jennmoney.biz/pxon/</p>
+      <p>
+        Read more about PXON <a href="https://jennmoney.biz/pxon/">here</a>.
+      </p>
 
       <p>
         When you would like to add a piece of artwork to your gallery, that
-        .json file is copied to your computer. You can view the code for this
-        project here: https://github.com/dumblr/pixel-gallery
+        .json file is copied to your computer. You now have a copy of the
+        artwork, with all of the original attribution and data.
       </p>
-    </div>
-  </div>
+    </Section>
+    <Section>
+      <h2>Getting Started</h2>
+
+      <ol>
+        <li>
+          Download <a href="https://beakerbrowser.com/">Beaker Browser</a>
+        </li>
+        <li>
+          Visit the original gallery:{' '}
+          <a href="dat://pixel-gallery.hashbase.io/">
+            dat://pixel-gallery.hashbase.io/
+          </a>
+          , in Beaker Browser.
+        </li>
+        <li>Click the button "create your own pixel-gallery"</li>
+        <li>
+          You've now created your own pixel-gallery! Since this is <em>your</em>{' '}
+          gallery, you'll see some special controls. You can now delete any
+          artwork in your gallery, add others' artwork, or visit your canvas and
+          create some of your own art.
+        </li>
+        <li>
+          To add someone else's art to your gallery:{' '}
+          <ul>
+            <li>Visit their gallery</li>
+            <li>Find the artwork you would like to put in your gallery</li>
+            <li>Click the button that says "Add to your gallery"</li>
+            <li>Copy the artwork address in the input box</li>
+            <li>Navigate back to your gallery</li>
+            <li>
+              Paste the artwork address in your "Add artwork to your gallery"
+              box and press "Submit"
+            </li>
+            <li>Done! Now you are hosting someone else's art.</li>
+          </ul>
+        </li>
+      </ol>
+
+      <p />
+    </Section>
+    <Section>
+      <p>
+        You can view the code for this project{' '}
+        <a href="https://github.com/dumblr/pixel-gallery">here</a>.
+      </p>
+    </Section>
+  </Wrapper>
 );
 
 export default Info;
