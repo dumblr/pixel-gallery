@@ -1,5 +1,5 @@
 import React from 'react';
-import { Wrapper, Container } from './styles';
+import { Wrapper, Container, Button } from './styles';
 import ArtworkGrid from '../ArtworkGrid';
 
 import URL from 'url-parse';
@@ -57,9 +57,9 @@ class EachArtwork extends React.Component {
         />
 
         {isOwner && (
-          <button onClick={() => removeFn(URL(software).pathname)}>
+          <Button onClick={() => removeFn(URL(software).pathname)}>
             remove from gallery
-          </button>
+          </Button>
         )}
       </Wrapper>
     );
