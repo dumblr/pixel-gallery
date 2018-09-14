@@ -14,7 +14,7 @@ import {
 } from './styles';
 import URL from 'url-parse';
 import urlEnv from '../../utils/urlEnv';
-import { EMPTY_GALLERY } from '../../config';
+import { DAT_URL } from '../../config';
 
 class Header extends React.Component {
   state = {
@@ -43,7 +43,7 @@ class Header extends React.Component {
   };
 
   createGallery = async () => {
-    const newGallery = await global.DatArchive.fork(EMPTY_GALLERY, {
+    const newGallery = await global.DatArchive.fork(DAT_URL, {
       title: 'Name of gallery – will show up at top of site',
       description: 'Description of gallery – will show up below title',
       prompt: true
