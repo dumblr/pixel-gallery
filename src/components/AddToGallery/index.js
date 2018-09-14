@@ -1,33 +1,37 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { Wrapper, Button } from './styles';
+import { Wrapper, Container, Button, Text, Input, Span } from './styles';
 import { Link } from '@reach/router';
 
 const AddToGallery = ({
   software,
-  isBeaker,
   flipGalleryOpen,
-  addToGalleryOpen
+  addToGalleryOpen,
+  artworkCopied,
+  copyFn
 }) => (
-  <Fragment>
-    <Button onClick={() => flipGalleryOpen()}>Add to your gallery ↓</Button>
-    <Wrapper opened={addToGalleryOpen}>
-      <p>
+  <Wrapper>
+    <Button onClick={() => flipGalleryOpen()} opened={addToGalleryOpen}>
+      Add to your gallery ↓
+    </Button>
+    <Container opened={addToGalleryOpen}>
+      <Text>
         Copy and paste the artwork address into the 'Add Artwork' form on your
-        gallery
-      </p>
+        gallery.
+      </Text>
       <div>
-        <input readOnly value={software} onClick={e => e.target.select()} />
-        <CopyToClipboard text={software}>
-          <button>Copy</button>
+        <Input readOnly value={software} onClick={e => e.target.select()} />
+        <CopyToClipboard text={software} onCopy={() => copyFn()}>
+          <Button>Copy</Button>
         </CopyToClipboard>
+        <Span>{artworkCopied ? 'Copied.' : null}</Span>
       </div>
 
-      <p>
+      <Text>
         More instructions <Link to="instructions">here</Link>.
-      </p>
-    </Wrapper>
-  </Fragment>
+      </Text>
+    </Container>
+  </Wrapper>
 );
 
 export default AddToGallery;

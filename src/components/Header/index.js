@@ -8,7 +8,9 @@ import {
   AddWrapper,
   AddTitle,
   CreateButton,
-  CreateContainer
+  CreateContainer,
+  AddButton,
+  AddInput
 } from './styles';
 import URL from 'url-parse';
 import urlEnv from '../../utils/urlEnv';
@@ -78,12 +80,12 @@ class Header extends React.Component {
             {isOwner && (
               <AddWrapper>
                 <AddTitle>Add artwork to your gallery</AddTitle>
-                <input
+                <AddInput
                   placeholder="dat://xxxxxxxxxxxxxxxxx/art/zzzz-zzzz-zzzz-zzzz.json"
                   value={this.state.newArtworkUrl}
                   onChange={e => this.updateNewArtworkUrl(e)}
                 />
-                <button onClick={e => this.addArtwork(e)}>submit</button>
+                <AddButton onClick={e => this.addArtwork(e)}>submit</AddButton>
               </AddWrapper>
             )}
           </CreateContainer>

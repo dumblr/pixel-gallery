@@ -5,13 +5,15 @@ import ArtworkGrid from '../ArtworkGrid';
 import URL from 'url-parse';
 import ArtistInfo from '../ArtistInfo';
 import AddToGallery from '../AddToGallery';
+import { ArtworkDescription } from '../ArtistInfo/styles';
 
 class EachArtwork extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      addToGalleryOpen: false
+      addToGalleryOpen: false,
+      artworkCopied: false
     };
   }
 
@@ -20,6 +22,12 @@ class EachArtwork extends React.Component {
       return {
         addToGalleryOpen: !prevState.addToGalleryOpen
       };
+    });
+  };
+
+  artworkCopyFn = () => {
+    this.setState({
+      artworkCopied: true
     });
   };
 
@@ -50,17 +58,20 @@ class EachArtwork extends React.Component {
           userComment={userComment}
         />
 
-        <AddToGallery
-          software={software}
-          addToGalleryOpen={this.state.addToGalleryOpen}
-          flipGalleryOpen={this.flipGalleryOpen}
-        />
-
-        {isOwner && (
-          <Button onClick={() => removeFn(URL(software).pathname)}>
-            remove from gallery
-          </Button>
-        )}
+        <div style={{ display: 'flex' }}>
+          <AddToGallery
+            software={software}
+            addToGalleryOpen={this.state.addToGalleryOpen}
+            flipGalleryOpen={this.flipGalleryOpen}
+            artworkCopied={this.state.artworkCopied}
+            copyFn={this.artworkCopyFn}
+          />
+          {isOwner && (
+            <Button onClick={() => removeFn(URL(software).pathname)}>
+              remove from gallery
+            </Button>
+          )}
+        </div>
       </Wrapper>
     );
   }

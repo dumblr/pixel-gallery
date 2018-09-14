@@ -37,7 +37,7 @@ export const CreateContainer = styled.div`
   padding-top: 20px;
   position: absolute;
   top: 100%;
-  width: 240px;
+  width: 300px;
 `;
 
 export const CreateButton = styled.button`
@@ -52,8 +52,29 @@ export const AddWrapper = styled.div`
   margin: 20px 0 0;
   border: 1px solid #000;
   padding: 15px;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
 `;
 
 export const AddTitle = styled.h4`
   margin: 0 0 10px;
+`;
+
+export const AddInput = styled.input`
+  height: 21px;
+  border: 1px solid #000;
+  margin: 0;
+  padding-left: 3px;
+  padding-right: 3px;
+  width: 200px;
+`;
+
+export const AddButton = styled.button`
+  border: 1px solid #000;
+  background-color: ${props =>
+    props.opened ? 'rgba(0,0,0,0.75)' : 'rgba(0,0,0,1)'};
+  color: white;
+  padding: 5px 9px;
+  cursor: pointer;
+  outline: none;
+  height: 25px;
 `;
