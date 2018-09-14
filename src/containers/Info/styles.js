@@ -4,7 +4,10 @@ export const Wrapper = styled.div`
   padding: 40px;
   max-width: 34em;
 
-  p {
+  p,
+  ul,
+  ol,
+  li {
     line-height: 1.3em;
   }
 

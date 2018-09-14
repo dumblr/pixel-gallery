@@ -30,16 +30,23 @@ class Header extends React.Component {
 
   addArtwork = async e => {
     await e.preventDefault();
-    const otherArchive = await new global.DatArchive(this.state.newArtworkUrl);
-    const pathname = await URL(this.state.newArtworkUrl).pathname;
-    const artwork = await otherArchive.readFile(`${pathname}`);
-    const archive = await new global.DatArchive(urlEnv());
 
-    await archive.writeFile(`${pathname}`, artwork);
-    const artworkState = await this.props.loadArtwork(archive);
-    await this.props.setArtworkState(artworkState);
+    try {
+      const otherArchive = await new global.DatArchive(
+        this.state.newArtworkUrl
+      );
+      const pathname = await URL(this.state.newArtworkUrl).pathname;
+      const artwork = await otherArchive.readFile(`${pathname}`);
+      const archive = await new global.DatArchive(urlEnv());
 
-    this.setState({ newArtworkUrl: '' });
+      await archive.writeFile(`${pathname}`, artwork);
+      const artworkState = await this.props.loadArtwork(archive);
+      await this.props.setArtworkState(artworkState);
+
+      this.setState({ newArtworkUrl: '' });
+    } catch (error) {
+      console.log('The following error occured', error);
+    }
   };
 
   createGallery = async () => {

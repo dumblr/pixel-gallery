@@ -1,6 +1,6 @@
 {
   "url": "dat://6807ae7cbaf568a0f84ec67d34a51bc8d97e38c8a18ffce0adb5261b09ae7db0/",
-  "title": "pixel-gallery test",
-  "description": "A p2p pxon gallery test site",
+  "title": "pixel-gallery",
+  "description": "A p2p pixel art gallery",
   "fallback_page": "/index.html"
 }

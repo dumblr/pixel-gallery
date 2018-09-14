@@ -10,8 +10,8 @@ class Gallery extends React.Component {
   state = {
     artwork: [],
     isOwner: false,
-    title: 'pixel-gallery',
-    description: 'a p2p pxon canvas and gallery',
+    title: null,
+    description: null,
     siteError: false,
     isDat: true
   };

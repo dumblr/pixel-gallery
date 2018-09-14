@@ -5,7 +5,8 @@ import {
   Container,
   Header,
   ColorPickerContainer,
-  Input
+  Input,
+  Button
 } from './styles';
 import Easel from '../../components/Easel';
 import { getGridCoordinates } from '../../utils/galleryTransforms';
@@ -84,7 +85,7 @@ class Canvas extends React.Component {
       <Wrapper>
         <Head title="Canvas" />
         <Header>
-          <Link to="/">back to gallery</Link>
+          <Link to="/">← back to gallery</Link>
         </Header>
         <Container>
           <div>
@@ -114,9 +115,9 @@ class Canvas extends React.Component {
                 value={this.state.copyright}
                 onChange={e => this.updateInputDetail(e, 'copyright')}
               />
-              <button onClick={this.publishArtwork}>
+              <Button onClick={this.publishArtwork}>
                 save artwork to gallery
-              </button>
+              </Button>
             </div>
           </div>
 

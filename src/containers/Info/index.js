@@ -1,8 +1,10 @@
 import React from 'react';
 import { Wrapper, Section } from './styles';
+import { Link } from '@reach/router';
 
 const Info = () => (
   <Wrapper>
+    <Link to="/">← back to gallery</Link>
     <Section>
       <h2>Pixel Gallery is a peer-to-peer gallery for pixel art.</h2>
 
@@ -144,6 +146,8 @@ const Info = () => (
     </Section>
     <Section>
       <p>
+        Pixel Gallery is a project by{' '}
+        <a href="http://nickbytes.com">Nick Beattie</a>.<br />
         You can view the code for this project{' '}
         <a href="https://github.com/dumblr/pixel-gallery">here</a>.
       </p>
