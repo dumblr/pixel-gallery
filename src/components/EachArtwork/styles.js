@@ -3,7 +3,7 @@ import frame from '../../assets/frame.png';
 
 export const Wrapper = styled.div`
   margin: 0 auto 240px;
-  padding: 0 40px;
+  padding: 20px 40px;
 `;
 
 export const Container = styled.div`
