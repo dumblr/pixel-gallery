@@ -5,7 +5,6 @@ import ArtworkGrid from '../ArtworkGrid';
 import URL from 'url-parse';
 import ArtistInfo from '../ArtistInfo';
 import AddToGallery from '../AddToGallery';
-import { ArtworkDescription } from '../ArtistInfo/styles';
 
 class EachArtwork extends React.Component {
   constructor(props) {
