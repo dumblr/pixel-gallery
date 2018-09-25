@@ -15,6 +15,7 @@ import fileContents from '../../utils/fileContents';
 import { v4 } from 'uuid';
 import urlEnv from '../../utils/urlEnv';
 import Head from '../../components/Head';
+import configContents from '../../utils/configContents';
 
 class Canvas extends React.Component {
   state = {
@@ -58,6 +59,19 @@ class Canvas extends React.Component {
       },
       []
     );
+
+    const works = await archive.readFile(`/config/works.json`);
+    const oldWorks = await JSON.parse(works);
+
+    console.log('oldworks', oldWorks);
+
+    await archive.unlink('/config/works.json');
+
+    const newWorks = await oldWorks.works;
+    await newWorks.push(newArtId);
+    await console.log('newworks', newWorks);
+
+    await archive.writeFile(`/config/works.json`, configContents(newWorks));
 
     await archive.writeFile(
       `/art/${newArtId}.json`,

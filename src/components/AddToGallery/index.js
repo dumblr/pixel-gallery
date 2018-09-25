@@ -28,7 +28,7 @@ const AddToGallery = ({
       </div>
 
       <Text>
-        More instructions <Link to="instructions">here</Link>.
+        More instructions <Link to="info">here</Link>.
       </Text>
     </Container>
   </Wrapper>
