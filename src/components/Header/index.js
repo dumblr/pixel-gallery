@@ -51,12 +51,11 @@ class Header extends React.Component {
         .split('.');
       await newWorks.push(path[0]);
 
+      await archive.writeFile(`${pathname}`, artwork);
       await archive.writeFile(
         `/gallery-manifest.json`,
         configContents(newWorks)
       );
-      await archive.writeFile(`${pathname}`, artwork);
-
       const artworkState = await this.props.loadArtwork();
       await this.props.setArtworkState(artworkState);
 

@@ -63,13 +63,13 @@ class Canvas extends React.Component {
   publishArtwork = async () => {
     const newArtId = await v4();
     const archive = await new global.DatArchive(urlEnv());
-    const pixelConversion = await this.state.canvas.reduce(
-      (newCans, pixel, iter) => {
-        newCans.push(getGridCoordinates(iter, pixel.color));
-        return newCans;
-      },
-      []
-    );
+
+    const promises = await this.state.canvas.reduce((newCans, pixel, iter) => {
+      newCans.push(getGridCoordinates(iter, pixel.color));
+      return newCans;
+    }, []);
+
+    const pixelConversion = await Promise.all(promises);
 
     const works = await archive.readFile(`/gallery-manifest.json`);
     const oldWorks = await JSON.parse(works);
