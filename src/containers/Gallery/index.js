@@ -23,7 +23,8 @@ class Gallery extends React.Component {
       const {
         title = '',
         description = '',
-        isOwner = false
+        isOwner = false,
+        isDat = false
       } = await this.loadArchiveInfo();
       const artwork = await this.loadHttpArtwork();
 
@@ -31,7 +32,8 @@ class Gallery extends React.Component {
         isOwner,
         artwork,
         title,
-        description
+        description,
+        isDat
       });
     } catch (error) {
       console.log('Error:', error);
@@ -44,13 +46,13 @@ class Gallery extends React.Component {
   loadArchiveInfo = async () => {
     try {
       const archive = await new global.DatArchive(urlEnv());
-      const info = await archive.getInfo();
-      return info;
+      const { title, description, isOwner } = await archive.getInfo();
+      return { title, description, isOwner, isDat: true };
     } catch (error) {
-      const info = await wretch('dat.json')
+      const { title, description } = await wretch('dat.json')
         .get()
         .json();
-      return info;
+      return { title, description, isDat: false };
     }
   };
 
@@ -118,6 +120,7 @@ class Gallery extends React.Component {
           isOwner={this.state.isOwner}
           loadArtwork={this.loadArtwork}
           setArtworkState={this.setArtworkState}
+          isDat={this.state.isDat}
         />
         <ArtworkList
           artwork={sortBy(this.state.artwork, ['dateTime']).reverse()}
