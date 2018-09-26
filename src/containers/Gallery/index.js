@@ -18,6 +18,7 @@ class Gallery extends React.Component {
   };
 
   async componentDidMount() {
+    window.scrollTo(0, 0);
     try {
       const {
         title = '',
@@ -33,6 +34,7 @@ class Gallery extends React.Component {
         description
       });
     } catch (error) {
+      console.log('Error:', error);
       this.setState({
         siteError: true
       });
@@ -53,12 +55,14 @@ class Gallery extends React.Component {
   };
 
   loadHttpArtwork = async () => {
-    const api = await wretch(`${configEnv()}/gallery-manifest.json`)
+    const api = await wretch(`${configEnv(true)}/gallery-manifest.json`)
       .get()
       .json(json => json);
 
     const promises = await api.works.map(async artwork => {
-      const artworkResponse = await wretch(`${configEnv()}/art/${artwork}.json`)
+      const artworkResponse = await wretch(
+        `${configEnv(true)}/art/${artwork}.json`
+      )
         .get()
         .json();
       return artworkResponse;

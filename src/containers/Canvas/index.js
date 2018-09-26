@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { SwatchesPicker as ColorPicker } from 'react-color';
 import {
   Wrapper,
@@ -25,14 +25,26 @@ class Canvas extends React.Component {
     imageDescription: '',
     userComment: '',
     copyright: '',
-    dateTime: ''
+    dateTime: '',
+    isDat: true
   };
-  componentDidMount() {
-    const canvas = Array.from(Array(256));
-    canvas.fill({ color: 'white' });
-    this.setState({
-      canvas
-    });
+  async componentDidMount() {
+    await window.scrollTo(0, 0);
+    const canvas = await Array.from(Array(256));
+    await canvas.fill({ color: 'white' });
+
+    try {
+      await new global.DatArchive(urlEnv());
+      await this.setState({
+        canvas
+      });
+    } catch (error) {
+      console.log('Error', error);
+      await this.setState({
+        canvas,
+        isDat: false
+      });
+    }
   }
 
   savePixel = (block, color) => {
@@ -98,46 +110,56 @@ class Canvas extends React.Component {
           <Link to="/">← back to gallery</Link>
         </Header>
         <Container>
-          <div>
-            <Easel
-              savePixel={this.savePixel}
-              canvas={this.state.canvas}
-              easelColor={this.state.easelColor}
-            />
-            <div>
-              <Input
-                placeholder="Artist Name"
-                value={this.state.artist}
-                onChange={e => this.updateInputDetail(e, 'artist')}
-              />
-              <Input
-                placeholder="Artwork Title"
-                value={this.state.imageDescription}
-                onChange={e => this.updateInputDetail(e, 'imageDescription')}
-              />
-              <Input
-                placeholder="Artwork Description"
-                value={this.state.userComment}
-                onChange={e => this.updateInputDetail(e, 'userComment')}
-              />
-              <Input
-                placeholder="Copyright info"
-                value={this.state.copyright}
-                onChange={e => this.updateInputDetail(e, 'copyright')}
-              />
-              <Button onClick={this.publishArtwork}>
-                save artwork to gallery
-              </Button>
-            </div>
-          </div>
+          {this.state.isDat ? (
+            <Fragment>
+              <div>
+                <Easel
+                  savePixel={this.savePixel}
+                  canvas={this.state.canvas}
+                  easelColor={this.state.easelColor}
+                />
+                <div>
+                  <Input
+                    placeholder="Artist Name"
+                    value={this.state.artist}
+                    onChange={e => this.updateInputDetail(e, 'artist')}
+                  />
+                  <Input
+                    placeholder="Artwork Title"
+                    value={this.state.imageDescription}
+                    onChange={e =>
+                      this.updateInputDetail(e, 'imageDescription')
+                    }
+                  />
+                  <Input
+                    placeholder="Artwork Description"
+                    value={this.state.userComment}
+                    onChange={e => this.updateInputDetail(e, 'userComment')}
+                  />
+                  <Input
+                    placeholder="Copyright info"
+                    value={this.state.copyright}
+                    onChange={e => this.updateInputDetail(e, 'copyright')}
+                  />
+                  <Button onClick={this.publishArtwork}>
+                    save artwork to gallery
+                  </Button>
+                </div>
+              </div>
 
-          <ColorPickerContainer>
-            <ColorPicker
-              height={'100%'}
-              color={this.state.easelColor}
-              onChangeComplete={this.handleChangeComplete}
-            />
-          </ColorPickerContainer>
+              <ColorPickerContainer>
+                <ColorPicker
+                  height={'100%'}
+                  color={this.state.easelColor}
+                  onChangeComplete={this.handleChangeComplete}
+                />
+              </ColorPickerContainer>
+            </Fragment>
+          ) : (
+            <div>
+              <p>This page is not accessible in your browser.</p>
+            </div>
+          )}
         </Container>
       </Wrapper>
     );

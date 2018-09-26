@@ -7,8 +7,8 @@ export const urlEnv = () => {
   return window.location.toString();
 };
 
-export const configEnv = () => {
-  if (process.env.NODE_ENV === 'development') {
+export const configEnv = windowLoc => {
+  if (process.env.NODE_ENV === 'development' && !windowLoc) {
     return `dat://${DAT_URL}`;
   }
   return window.location.toString();
