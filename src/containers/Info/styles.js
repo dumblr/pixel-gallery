@@ -7,8 +7,13 @@ export const Wrapper = styled.div`
   p,
   ul,
   ol,
-  li {
-    line-height: 1.3em;
+  li,
+  blockquote {
+    line-height: 1.4em;
+  }
+
+  code {
+    font-weight: bold;
   }
 
   blockquote {
