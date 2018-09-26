@@ -117,7 +117,7 @@ class Info extends React.Component {
             artwork, with all of the original attribution and data.
           </p>
         </Section>
-        <Section>
+        <Section id="GettingStarted">
           <h2>Getting Started</h2>
 
           <ol>
@@ -141,7 +141,7 @@ class Info extends React.Component {
             <li>
               To add someone else's art to your gallery:{' '}
               <ul>
-                <li>Visit their gallery</li>
+                <li>Visit their gallery in Beaker Browser</li>
                 <li>Find the artwork you would like to put in your gallery</li>
                 <li>Click the button that says "Add to your gallery"</li>
                 <li>Copy the artwork address in the input box</li>

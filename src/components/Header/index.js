@@ -15,6 +15,7 @@ import {
 import URL from 'url-parse';
 import { urlEnv } from '../../utils/urlEnv';
 import { DAT_URL } from '../../config';
+import { Link, navigate } from '@reach/router';
 
 class Header extends React.Component {
   state = {
@@ -76,11 +77,23 @@ class Header extends React.Component {
             {isOwner && <StyledLink to="canvas">/canvas</StyledLink>}
           </div>
           <CreateContainer>
-            {isDat && (
+            {isDat ? (
               <div>
                 <CreateButton onClick={this.createGallery}>
                   create your own pixel-gallery
                 </CreateButton>
+              </div>
+            ) : (
+              <div>
+                <CreateButton disabled>
+                  create your own pixel-gallery
+                </CreateButton>
+                <p style={{ textAlign: 'right' }}>
+                  <small>
+                    Read about{' '}
+                    <a href="/info#GettingStarted">Getting Started</a>.
+                  </small>
+                </p>
               </div>
             )}
 
