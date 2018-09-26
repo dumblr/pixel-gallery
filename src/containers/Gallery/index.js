@@ -118,7 +118,7 @@ class Gallery extends React.Component {
           title={this.state.title}
           description={this.state.description}
           isOwner={this.state.isOwner}
-          loadArtwork={this.loadArtwork}
+          loadArtwork={this.loadHttpArtwork}
           setArtworkState={this.setArtworkState}
           isDat={this.state.isDat}
         />
