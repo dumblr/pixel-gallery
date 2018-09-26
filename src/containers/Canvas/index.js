@@ -13,8 +13,9 @@ import { getGridCoordinates } from '../../utils/galleryTransforms';
 import { Link, navigate } from '@reach/router';
 import fileContents from '../../utils/fileContents';
 import { v4 } from 'uuid';
-import urlEnv from '../../utils/urlEnv';
+import { urlEnv } from '../../utils/urlEnv';
 import Head from '../../components/Head';
+import configContents from '../../utils/configContents';
 
 class Canvas extends React.Component {
   state = {
@@ -50,7 +51,6 @@ class Canvas extends React.Component {
   publishArtwork = async () => {
     const newArtId = await v4();
     const archive = await new global.DatArchive(urlEnv());
-    console.log(archive);
     const pixelConversion = await this.state.canvas.reduce(
       (newCans, pixel, iter) => {
         newCans.push(getGridCoordinates(iter, pixel.color));
@@ -58,6 +58,16 @@ class Canvas extends React.Component {
       },
       []
     );
+
+    const works = await archive.readFile(`/gallery-manifest.json`);
+    const oldWorks = await JSON.parse(works);
+
+    await archive.unlink(`/gallery-manifest.json`);
+
+    const newWorks = await oldWorks.works;
+    await newWorks.push(newArtId);
+
+    await archive.writeFile(`/gallery-manifest.json`, configContents(newWorks));
 
     await archive.writeFile(
       `/art/${newArtId}.json`,

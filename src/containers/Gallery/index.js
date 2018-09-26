@@ -1,10 +1,12 @@
 import React, { Fragment } from 'react';
 import Header from '../../components/Header';
 import ArtworkList from '../../components/ArtworkList';
-import urlEnv from '../../utils/urlEnv';
-import { Link } from '@reach/router';
+import { urlEnv, configEnv } from '../../utils/urlEnv';
 import Head from '../../components/Head';
 import sortBy from 'lodash.sortby';
+import wretch from 'wretch';
+import configContents from '../../utils/configContents';
+import URL from 'url-parse';
 
 class Gallery extends React.Component {
   state = {
@@ -12,15 +14,17 @@ class Gallery extends React.Component {
     isOwner: false,
     title: null,
     description: null,
-    siteError: false,
-    isDat: true
+    siteError: false
   };
 
   async componentDidMount() {
     try {
-      const archive = await new global.DatArchive(urlEnv());
-      const { title, description, isOwner } = await archive.getInfo();
-      const artwork = await this.loadArtwork(archive);
+      const {
+        title = '',
+        description = '',
+        isOwner = false
+      } = await this.loadArchiveInfo();
+      const artwork = await this.loadHttpArtwork();
 
       this.setState({
         isOwner,
@@ -30,21 +34,34 @@ class Gallery extends React.Component {
       });
     } catch (error) {
       this.setState({
-        siteError: true,
-        isOwner: false,
-        isDat: false
+        siteError: true
       });
     }
   }
 
-  loadArtwork = async archive => {
-    const art = await archive.readdir('/art');
-    if (art.length === 0) {
-      return null;
+  loadArchiveInfo = async () => {
+    try {
+      const archive = await new global.DatArchive(urlEnv());
+      const info = await archive.getInfo();
+      return info;
+    } catch (error) {
+      const info = await wretch('dat.json')
+        .get()
+        .json();
+      return info;
     }
-    const promises = art.map(async artwork => {
-      const artworkResponse = await archive.readFile(`/art/${artwork}`);
-      return JSON.parse(artworkResponse);
+  };
+
+  loadHttpArtwork = async () => {
+    const api = await wretch(`${configEnv()}/gallery-manifest.json`)
+      .get()
+      .json(json => json);
+
+    const promises = await api.works.map(async artwork => {
+      const artworkResponse = await wretch(`${configEnv()}/art/${artwork}.json`)
+        .get()
+        .json();
+      return artworkResponse;
     });
 
     const results = await Promise.all(promises);
@@ -53,9 +70,29 @@ class Gallery extends React.Component {
 
   removeFromGallery = async pathname => {
     const archive = await new global.DatArchive(urlEnv());
-    console.log('pathname', pathname);
+    const works = await archive.readFile(`/gallery-manifest.json`);
+
+    await archive.unlink(`/gallery-manifest.json`);
+
+    const oldWorks = await JSON.parse(works);
+    const newWorks = await oldWorks.works;
+
+    const promises = await newWorks.filter(item => {
+      const path = URL(pathname)
+        .pathname.substr(URL(pathname).pathname.lastIndexOf('/') + 1)
+        .split('.');
+
+      return item !== path[0];
+    });
+
+    const newAdjusted = await Promise.all(promises);
+
     await archive.unlink(pathname);
-    const artwork = await this.loadArtwork(archive);
+    await archive.writeFile(
+      `/gallery-manifest.json`,
+      configContents(newAdjusted)
+    );
+    const artwork = await this.loadHttpArtwork();
     this.setState({
       artwork
     });
@@ -75,7 +112,6 @@ class Gallery extends React.Component {
           title={this.state.title}
           description={this.state.description}
           isOwner={this.state.isOwner}
-          isDat={this.state.isDat}
           loadArtwork={this.loadArtwork}
           setArtworkState={this.setArtworkState}
         />
@@ -84,18 +120,11 @@ class Gallery extends React.Component {
           isOwner={this.state.isOwner}
           removeFn={this.removeFromGallery}
         />
-        {!this.state.isDat && (
+
+        {this.state.siteError && (
           <Fragment>
             <div style={{ padding: '40px' }}>
-              <p>
-                This gallery is only viewable in browsers supporting the dat://
-                protocol.
-              </p>
-            </div>
-            <div style={{ padding: '40px' }}>
-              <p>
-                What is this? More info <Link to="info">here</Link>.
-              </p>
+              <p>Looks like there was an error.</p>
             </div>
           </Fragment>
         )}
