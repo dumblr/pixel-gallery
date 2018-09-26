@@ -66,7 +66,8 @@ class Gallery extends React.Component {
         `${configEnv(true)}/art/${artwork}.json`
       )
         .get()
-        .json();
+        .json()
+        .catch(error => console.log('Error:', error));
       return artworkResponse;
     });
 
