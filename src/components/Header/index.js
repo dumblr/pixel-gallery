@@ -13,7 +13,7 @@ import {
   AddInput
 } from './styles';
 import URL from 'url-parse';
-import urlEnv from '../../utils/urlEnv';
+import { urlEnv } from '../../utils/urlEnv';
 import { DAT_URL } from '../../config';
 
 class Header extends React.Component {

@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import Header from '../../components/Header';
 import ArtworkList from '../../components/ArtworkList';
-import urlEnv from '../../utils/urlEnv';
+import { urlEnv, configEnv } from '../../utils/urlEnv';
 import Head from '../../components/Head';
 import sortBy from 'lodash.sortby';
 import wretch from 'wretch';
@@ -53,30 +53,28 @@ class Gallery extends React.Component {
   };
 
   loadHttpArtwork = async () => {
-    const api = await wretch('/config/works.json')
+    const api = await wretch(`${configEnv()}/gallery-manifest.json`)
       .get()
       .json(json => json);
 
     const promises = await api.works.map(async artwork => {
-      const artworkResponse = await wretch(`/art/${artwork}.json`)
+      const artworkResponse = await wretch(`${configEnv()}/art/${artwork}.json`)
         .get()
         .json();
       return artworkResponse;
     });
 
     const results = await Promise.all(promises);
-    console.log('results', results);
     return results;
   };
 
   removeFromGallery = async pathname => {
     const archive = await new global.DatArchive(urlEnv());
-    const works = await archive.readFile(`/config/works.json`);
+    const works = await archive.readFile(`/gallery-manifest.json`);
 
-    await archive.unlink(`/config/works.json`);
+    await archive.unlink(`/gallery-manifest.json`);
 
     const oldWorks = await JSON.parse(works);
-
     const newWorks = await oldWorks.works;
 
     const promises = await newWorks.filter(item => {
@@ -90,8 +88,10 @@ class Gallery extends React.Component {
     const newAdjusted = await Promise.all(promises);
 
     await archive.unlink(pathname);
-    await archive.writeFile('/works2.json', 'helloooooo');
-    await archive.writeFile(`/works.json`, configContents(newAdjusted));
+    await archive.writeFile(
+      `/gallery-manifest.json`,
+      configContents(newAdjusted)
+    );
     const artwork = await this.loadHttpArtwork();
     this.setState({
       artwork
