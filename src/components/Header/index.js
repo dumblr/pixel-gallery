@@ -15,7 +15,6 @@ import {
 import URL from 'url-parse';
 import { urlEnv } from '../../utils/urlEnv';
 import { DAT_URL } from '../../config';
-import { Link, navigate } from '@reach/router';
 
 class Header extends React.Component {
   state = {
