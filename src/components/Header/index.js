@@ -15,6 +15,7 @@ import {
 import URL from 'url-parse';
 import { urlEnv } from '../../utils/urlEnv';
 import { DAT_URL } from '../../config';
+import configContents from '../../utils/configContents';
 
 class Header extends React.Component {
   state = {
@@ -38,21 +39,24 @@ class Header extends React.Component {
       const pathname = await URL(this.state.newArtworkUrl).pathname;
       const artwork = await otherArchive.readFile(`${pathname}`);
       const archive = await new global.DatArchive(urlEnv());
-      // read gallery-manifest
+
       const works = await archive.readFile(`/gallery-manifest.json`);
-      // delete gallery-manifest
+
       await archive.unlink(`/gallery-manifest.json`);
-      // create new gallery-manifest works objects
+
       const oldWorks = await JSON.parse(works);
       const newWorks = await oldWorks.works;
-      await newWorks.push(
-        URL(pathname)
-          .pathname.substr(URL(pathname).pathname.lastIndexOf('/') + 1)
-          .split('.')
+      const path = await URL(pathname)
+        .pathname.substr(URL(pathname).pathname.lastIndexOf('/') + 1)
+        .split('.');
+      await newWorks.push(path[0]);
+
+      await archive.writeFile(
+        `/gallery-manifest.json`,
+        configContents(newWorks)
       );
-      // write new gallery-manifest
       await archive.writeFile(`${pathname}`, artwork);
-      // pass the correct prop
+
       const artworkState = await this.props.loadArtwork();
       await this.props.setArtworkState(artworkState);
 
