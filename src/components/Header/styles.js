@@ -42,10 +42,10 @@ export const CreateContainer = styled.div`
 
 export const CreateButton = styled.button`
   border: none;
-  background: ${props => (props.disabled ? 'rgba(0,0,0,0.5)' : '#000')};
+  background: #000;
   color: #fff;
   padding: 10px 15px;
-  cursor: ${props => (props.disabled ? 'not-allowed' : 'pointer')};
+  cursor: pointer;
 `;
 
 export const AddWrapper = styled.div`
