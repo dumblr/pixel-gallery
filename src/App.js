@@ -10,7 +10,7 @@ const App = () => (
     <Gallery path="/" />
     <Canvas path="/canvas" />
     <Info path="/info" />
-    <Instructions path="/instructions" />
+    <Instructions path="/using-pixel-gallery" />
   </Router>
 );
 

@@ -16,6 +16,7 @@ import URL from 'url-parse';
 import { urlEnv } from '../../utils/urlEnv';
 import { DAT_URL } from '../../config';
 import configContents from '../../utils/configContents';
+import { navigate } from '@reach/router';
 
 class Header extends React.Component {
   state = {
@@ -100,15 +101,9 @@ class Header extends React.Component {
               </div>
             ) : (
               <div>
-                <CreateButton disabled>
+                <CreateButton onClick={() => navigate(`/using-pixel-gallery`)}>
                   create your own pixel-gallery
                 </CreateButton>
-                <p style={{ textAlign: 'right' }}>
-                  <small>
-                    Read about{' '}
-                    <a href="/info#GettingStarted">Getting Started</a>.
-                  </small>
-                </p>
               </div>
             )}
 
