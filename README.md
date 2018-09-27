@@ -1,6 +1,6 @@
 # pixel-gallery
 
-a p2p pixel art gallery. Built w/ dat, pxon, react, styled-components.
+a p2p pixel art gallery & canvas. Built w/ dat, pxon, react, styled-components.
 
 - Create your own here: [dat://pixel-gallery.hashbase.io/](dat://pixel-gallery.hashbase.io/)
 - View-only mode here: [https://pixel-gallery.hashbase.io/](https://pixel-gallery.hashbase.io/)
