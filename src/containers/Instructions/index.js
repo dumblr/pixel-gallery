@@ -20,19 +20,23 @@ class Instructions extends React.Component {
             the features needed to create your own pixel-gallery.
           </p>
           <p>
-            pixel-gallery is built on a technology called <em>Dat</em>. Dat is a
-            new p2p hypermedia protocol. It provides public-key-addressed file
-            archives which can be synced securely and browsed on-demand. You can
-            read more about Dat <a href="https://datproject.org/">here</a>.
+            pixel-gallery is built on a technology called <em>Dat</em>.
+          </p>
+          <blockquote>
+            <p>
+              Dat is a new p2p hypermedia protocol. It provides
+              public-key-addressed file archives which can be synced securely
+              and browsed on-demand.
+            </p>
+          </blockquote>
+          <p>
+            You can read more about Dat{' '}
+            <a href="https://datproject.org/">here</a>.
           </p>
           <p>
             Currently, Dat is only support in{' '}
             <a href="http://beakerbrowser.com">Beaker Browser</a>, though other
             browsers are considering support.
-          </p>
-          <p>
-            By downloading <a href="http://beakerbrowser.com">Beaker Browser</a>
-            , you will be able to create your own gallery and artworks.
           </p>
           <p>
             Learn more about how pixel-gallery works{' '}

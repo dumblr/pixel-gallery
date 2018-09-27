@@ -15,9 +15,9 @@ class Info extends React.Component {
         </Section>
 
         <Section>
-          <h2>Pixel Gallery is a peer-to-peer gallery for pixel art.</h2>
+          <h2>pixel-gallery is a peer-to-peer gallery for pixel art.</h2>
 
-          <p>Pixel Galleries have three main features:</p>
+          <p>pixel-galleries have three main features:</p>
           <ol>
             <li>View artwork</li>
             <li>
